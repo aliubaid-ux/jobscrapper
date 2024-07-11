@@ -15,8 +15,8 @@ form.addEventListener('submit', (e) => {
     },
     body: JSON.stringify({ country, jobTitle })
   })
-  .then(response => response.json())
-  .then((data) => {
+ .then(response => response.json())
+ .then((data) => {
     const table = document.createElement('table');
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
@@ -40,3 +40,14 @@ form.addEventListener('submit', (e) => {
       row.appendChild(titleCell);
       const companyCell = document.createElement('td');
       companyCell.textContent = job.company;
+      row.appendChild(companyCell);
+      const locationCell = document.createElement('td');
+      locationCell.textContent = job.location;
+      row.appendChild(locationCell);
+      tbody.appendChild(row);
+    });
+  })
+ .catch((error) => {
+    errorMessageDiv.textContent = 'Error: ' error.message;
+  });
+});
