@@ -10,7 +10,7 @@ app.post('/api/scrape', (req, res) => {
   const jobs = [
     { title: 'Job 1', company: 'Company 1', location: 'Location 1' },
     { title: 'Job 2', company: 'Company 2', location: 'Location 2' },
-    // ...
+    //...
   ];
 
   res.json(jobs);
