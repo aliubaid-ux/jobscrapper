@@ -3,13 +3,13 @@
   "routes": [
     {
       "src": "/scrape",
-      "dest": "api/scrape.js",
-      "functions": {
-        "api/scrape.js": {
-          "memory": 2048,
-          "timeout": 30
-        }
-      }
+      "dest": "api/scrape.js"
     }
-  ]
+  ],
+  "functions": {
+    "api/scrape.js": {
+      "memory": 2048,
+      "timeout": 30
+    }
+  }
 }
