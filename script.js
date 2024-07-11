@@ -1,0 +1,60 @@
+const form = document.querySelector('form');
+const countryInput = document.querySelector('#country');
+const jobTitleInput = document.querySelector('#job_title');
+const jobListingsDiv = document.querySelector('#job-listings');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const country = countryInput.value;
+  const jobTitle = jobTitleInput.value;
+  fetch('/scrape', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ country, jobTitle })
+  })
+  .then(response => response.json())
+  .then((data) => {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    jobListingsDiv.appendChild(table);
+
+    const headers = ['Job Title', 'Company', 'Location'];
+    const headerRow = document.createElement('tr');
+    headers.forEach((header) => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+
+    data.forEach((job) => {
+      const row = document.createElement('tr');
+      const titleCell = document.createElement('td');
+      titleCell.textContent = job.title;
+      row.appendChild(titleCell);
+      const companyCell = document.createElement('td');
+      companyCell.textContent = job.company;
+      row.appendChild(companyCell);
+      const locationCell = document.createElement('td');
+      locationCell.textContent = job.location;
+      row.appendChild(locationCell);
+      const jsonSchemaButton = document.createElement('button');
+      jsonSchemaButton.textContent = 'Generate JSON Schema';
+      jsonSchemaButton.addEventListener('click', () => {
+        const jsonSchemaDiv = document.createElement('div');
+        jsonSchemaDiv.textContent = JSON.stringify(job, null, 2);
+        row.appendChild(jsonSchemaDiv);
+      });
+      row.appendChild(jsonSchemaButton);
+      tbody.appendChild(row);
+    });
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+});
