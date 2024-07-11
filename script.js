@@ -8,7 +8,7 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
   const country = countrySelect.value;
   const jobTitle = jobTitleInput.value;
-  fetch('/scrape', {
+  fetch('/api/scrape', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
