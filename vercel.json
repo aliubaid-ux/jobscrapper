@@ -7,7 +7,7 @@
     }
   ],
   "functions": {
-    "api/scrape.js": { // note the .js extension
+    "api/scrape.js": { 
       "memory": 2048,
       "timeout": 30
     }
