@@ -20,13 +20,22 @@
   <h1>Job Scraper</h1>
   <form>
     <label for="country">Country:</label>
-    <input type="text" id="country" name="country"><br><br>
+    <select id="country" name="country">
+      <option value="">Select a country</option>
+      <option value="USA">USA</option>
+      <option value="Canada">Canada</option>
+      <option value="UK">UK</option>
+      <option value="Australia">Australia</option>
+      <option value="India">India</option>
+      <!-- Add more countries here -->
+    </select><br><br>
     <label for="job_title">Job Title:</label>
     <input type="text" id="job_title" name="job_title"><br><br>
     <input type="submit" value="Scrape Jobs">
   </form>
   <div id="job-listings"></div>
+  <div id="error-message"></div>
 
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
