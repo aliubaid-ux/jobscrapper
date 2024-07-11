@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Scraper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Job Scraper</h1>
+  <form>
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country"><br><br>
+    <label for="job_title">Job Title:</label>
+    <input type="text" id="job_title" name="job_title"><br><br>
+    <input type="submit" value="Scrape Jobs">
+  </form>
+  <div id="job-listings"></div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
