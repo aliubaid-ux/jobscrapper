@@ -40,22 +40,3 @@ form.addEventListener('submit', (e) => {
       row.appendChild(titleCell);
       const companyCell = document.createElement('td');
       companyCell.textContent = job.company;
-      row.appendChild(companyCell);
-      const locationCell = document.createElement('td');
-      locationCell.textContent = job.location;
-      row.appendChild(locationCell);
-      const jsonSchemaButton = document.createElement('button');
-      jsonSchemaButton.textContent = 'Generate JSON Schema';
-      jsonSchemaButton.addEventListener('click', () => {
-        const jsonSchemaDiv = document.createElement('div');
-        jsonSchemaDiv.textContent = JSON.stringify(job, null, 2);
-        row.appendChild(jsonSchemaDiv);
-      });
-      row.appendChild(jsonSchemaButton);
-      tbody.appendChild(row);
-    });
-  })
- .catch((error) => {
-    errorMessageDiv.textContent = `Error: ${error.message}`;
-  });
-});
