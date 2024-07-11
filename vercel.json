@@ -4,14 +4,11 @@
     {
       "src": "/scrape",
       "dest": "api/scrape.js"
-    }
+    }   
   ]
-}
-{
-  "functions": {
+ "functions": {
     "api/scrape": {
       "memory": 2048 
-      "timeout": 30
-    }
-  }
+      "timeout": 30}
+   
 }
