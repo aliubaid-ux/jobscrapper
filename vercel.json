@@ -7,3 +7,10 @@
     }
   ]
 }
+{
+  "functions": {
+    "api/scrape": {
+      "memory": 2048 // increase memory limit to 2048MB
+    }
+  }
+}
