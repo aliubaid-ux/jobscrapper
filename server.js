@@ -1,33 +1,21 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
-const axios = require('axios');
-const cheerio = require('cheerio');
 
-app.use(cors());
 app.use(express.json());
 
-app.post('/scrape', (req, res) => {
-  const country = req.body.country;
-  const jobTitle = req.body.job_title;
-  let url = 'https://www.indeed.com/jobs';
-  if (country) {
-    url += `?l=${country}`;
-  }
-  if (jobTitle) {
-    url += `&q=${jobTitle}`;
-  }
-  axios.get(url)
-   .then((response) => {
-      const $ = cheerio.load(response.data);
-      const jobs = [];
-      $('div.jobsearch-SerpJobCard').each((index, element) => {
-        const title = $(element).find('h2.jobTitle').text();
-        const company = $(element).find('span.company').text();
-        const location = $(element).find('span.location').text();
-        jobs.push({ title, company, location });
-      });
-      res.json(jobs);
-    })
-   .catch((error) => {
-      console
+app.post('/api/scrape', (req, res) => {
+  const { country, jobTitle } = req.body;
+
+  // Replace this with your actual scraping logic
+  const jobs = [
+    { title: 'Job 1', company: 'Company 1', location: 'Location 1' },
+    { title: 'Job 2', company: 'Company 2', location: 'Location 2' },
+    // ...
+  ];
+
+  res.json(jobs);
+});
+
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
