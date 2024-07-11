@@ -1,19 +1,56 @@
+// server.js
 const express = require('express');
 const app = express();
+const puppeteer = require('puppeteer');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 app.use(express.json());
 
-app.post('/api/scrape', (req, res) => {
+app.post('/api/scrape', async (req, res) => {
   const { country, jobTitle } = req.body;
+  let url;
 
-  // Replace this with your actual scraping logic
-  const jobs = [
-    { title: 'Job 1', company: 'Company 1', location: 'Location 1' },
-    { title: 'Job 2', company: 'Company 2', location: 'Location 2' },
-    //...
-  ];
+  switch (country) {
+    case 'Dubai':
+      url = 'https://dubai.dubizzle.com/jobs/';
+      break;
+    case 'Saudia':
+      url = 'https://saudia.careerjet.com.ar/jobs/';
+      break;
+    case 'US':
+      url = 'https://www.indeed.com/jobs?q=' + jobTitle;
+      break;
+    default:
+      url = 'https://www.indeed.com/jobs?q=' + jobTitle;
+  }
 
-  res.json(jobs);
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(url);
+
+    // Wait for the job listings to load
+    await page.waitForSelector('.job-listing');
+
+    // Extract the job listings
+    const jobListings = await page.$$eval('.job-listing', (listings) => {
+      return listings.map((listing) => {
+        const title = listing.querySelector('.job-title').textContent;
+        const company = listing.querySelector('.company').textContent;
+        const location = listing.querySelector('.location').textContent;
+        return { title, company, location };
+      });
+    });
+
+    // Close the browser
+    await browser.close();
+
+    res.json(jobListings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to scrape job listings' });
+  }
 });
 
 app.listen(3000, () => {
