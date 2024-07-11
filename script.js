@@ -1,11 +1,12 @@
 const form = document.querySelector('form');
-const countryInput = document.querySelector('#country');
+const countrySelect = document.querySelector('#country');
 const jobTitleInput = document.querySelector('#job_title');
 const jobListingsDiv = document.querySelector('#job-listings');
+const errorMessageDiv = document.querySelector('#error-message');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const country = countryInput.value;
+  const country = countrySelect.value;
   const jobTitle = jobTitleInput.value;
   fetch('/scrape', {
     method: 'POST',
@@ -14,8 +15,8 @@ form.addEventListener('submit', (e) => {
     },
     body: JSON.stringify({ country, jobTitle })
   })
-  .then(response => response.json())
-  .then((data) => {
+ .then(response => response.json())
+ .then((data) => {
     const table = document.createElement('table');
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
@@ -54,7 +55,7 @@ form.addEventListener('submit', (e) => {
       tbody.appendChild(row);
     });
   })
-  .catch((error) => {
-    console.error(error);
+ .catch((error) => {
+    errorMessageDiv.textContent = `Error: ${error.message}`;
   });
 });
