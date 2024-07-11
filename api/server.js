@@ -1,11 +1,3 @@
-const express = require('express');
-const app = express();
-const puppeteer = require('puppeteer');
-const axios = require('axios');
-const cheerio = require('cheerio');
-
-app.use(express.json());
-
 app.post('/api/scrape', async (req, res) => {
   const { country, jobTitle } = req.body;
   let url;
@@ -25,7 +17,10 @@ app.post('/api/scrape', async (req, res) => {
   }
 
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: ['--disable-setuid-sandbox', '--no-sandbox'],
+      headless: true,
+    });
     const page = await browser.newPage();
     await page.goto(url);
 
@@ -47,11 +42,8 @@ app.post('/api/scrape', async (req, res) => {
 
     res.json(jobListings);
   } catch (error) {
-    console.error(error);
+    console.error(`Error scraping ${url}: ${error.message}`);
+    console.error(error.stack);
     res.status(500).json({ error: 'Failed to scrape job listings' });
   }
-});
-
-app.listen(3000, () => {
-  console.log('Server listening on port 3000');
 });
