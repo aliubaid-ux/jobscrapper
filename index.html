@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Job Scraper</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
     table {
       border-collapse: collapse;
     }
@@ -20,18 +19,16 @@
   <h1>Job Scraper</h1>
   <form>
     <label for="country">Country:</label>
-    <select id="country" name="country">
-      <option value="">Select a country</option>
-      <option value="USA">USA</option>
-      <option value="Canada">Canada</option>
-      <option value="UK">UK</option>
-      <option value="Australia">Australia</option>
-      <option value="India">India</option>
-      <!-- Add more countries here -->
-    </select><br><br>
+    <select id="country">
+      <option value="Dubai">Dubai</option>
+      <option value="Saudia">Saudia</option>
+      <option value="US">US</option>
+    </select>
+    <br>
     <label for="job_title">Job Title:</label>
-    <input type="text" id="job_title" name="job_title"><br><br>
-    <input type="submit" value="Scrape Jobs">
+    <input type="text" id="job_title" name="job_title">
+    <br>
+    <button type="submit">Scrape Jobs</button>
   </form>
   <div id="job-listings"></div>
   <div id="error-message"></div>
