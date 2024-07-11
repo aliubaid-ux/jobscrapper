@@ -2,12 +2,12 @@
   "version": 2,
   "routes": [
     {
-      "src": "/scrape",
-      "dest": "api/scrape.js"
+      "src": "./scrape",
+      "dest": "./api/scrape.js"
     }
   ],
   "functions": {
-    "api/scrape.js": {
+    "./api/scrape.js": {
       "memory": 2048,
       "timeout": 30
     }
